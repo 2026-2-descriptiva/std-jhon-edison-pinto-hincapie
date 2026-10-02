@@ -1,0 +1,2 @@
+orders,customers,units,revenue,net_revenue,avg_order_value,return_rate
+1000,428,3069,1280745.55,637042.53,1280.7456,0.516

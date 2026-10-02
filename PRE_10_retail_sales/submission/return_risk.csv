@@ -1,0 +1,10 @@
+Category,SalesChannel,orders,units,revenue,net_revenue,return_rate
+Home & Garden,Mobile App,99,315,115987.45,42018.22,0.5758
+Electronics,Website,107,337,129756.2,56530.34,0.5514
+Fashion,Website,112,344,161321.82,77717.1,0.5446
+Home & Garden,Website,104,323,132400.53,67676.99,0.5288
+Fashion,Mobile App,131,397,167679.44,80006.57,0.5191
+Electronics,Mobile App,108,323,152164.2,73357.93,0.5
+Fashion,In-Store,100,296,122213.24,67706.46,0.5
+Electronics,In-Store,121,383,158549.84,84265.48,0.4876
+Home & Garden,In-Store,118,351,140672.83,87763.44,0.4492

@@ -1,0 +1,4 @@
+PaymentMethod,orders,units,revenue,net_revenue,return_rate
+PayPal,346,1050,450827.44,227099.91,0.4913
+Cash,311,984,418676.17,183803.71,0.5659
+Credit Card,343,1035,411241.94,226138.91,0.4956

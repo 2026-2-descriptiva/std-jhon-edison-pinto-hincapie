@@ -1,0 +1,3 @@
+DayType,orders,units,revenue,net_revenue,return_rate
+Weekday,729,2230,937081.93,465094.98,0.5199
+Weekend,271,839,343663.62,171947.55,0.5055

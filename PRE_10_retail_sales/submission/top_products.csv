@@ -1,0 +1,11 @@
+ProductID,ProductName,Category,orders,units,revenue,net_revenue,return_rate
+147,Product_147,Home & Garden,3,12,8596.45,7167.45,0.3333
+414,Product_414,Electronics,3,13,8031.6,1748.28,0.6667
+326,Product_326,Electronics,4,16,8026.13,2525.56,0.75
+468,Product_468,Electronics,4,13,7348.86,2286.3,0.75
+297,Product_297,Fashion,3,11,7287.37,3369.1,0.6667
+205,Product_205,Electronics,3,11,7199.31,0.0,1.0
+221,Product_221,Fashion,2,9,7013.49,3872.85,0.5
+390,Product_390,Fashion,4,14,6915.47,906.6,0.75
+309,Product_309,Electronics,4,16,6886.79,2610.24,0.5
+496,Product_496,Home & Garden,6,20,6697.09,6351.11,0.3333
