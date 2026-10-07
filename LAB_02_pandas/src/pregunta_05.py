@@ -13,4 +13,6 @@ def pregunta_05():
         ...
     """
 
-    raise NotImplementedError
+    import pandas as pd
+
+    return pd.read_csv("data/tbl0.tsv", sep="\t").groupby("c1")["c2"].max()

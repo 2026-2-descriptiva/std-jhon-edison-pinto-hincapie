@@ -15,4 +15,9 @@ def pregunta_13():
         ...
     """
 
-    raise NotImplementedError
+    import pandas as pd
+
+    df = pd.read_csv("data/tbl0.tsv", sep="\t").merge(
+        pd.read_csv("data/tbl2.tsv", sep="\t"), on="c0"
+    )
+    return df.groupby("c1")["c5b"].sum()

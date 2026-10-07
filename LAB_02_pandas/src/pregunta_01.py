@@ -8,4 +8,6 @@ def pregunta_01():
         40
     """
 
-    raise NotImplementedError
+    import pandas as pd
+
+    return len(pd.read_csv("data/tbl0.tsv", sep="\t"))
