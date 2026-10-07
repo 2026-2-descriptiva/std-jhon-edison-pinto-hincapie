@@ -27,3 +27,4 @@
 --
 --  Escriba su consulta debajo de esta línea.
 --
+SELECT K0, AVG(c21) FROM tbl1 JOIN tbl2 USING (K1) WHERE c13 > 400 GROUP BY K0;

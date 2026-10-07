@@ -22,3 +22,4 @@
 --
 --  Escriba su consulta debajo de esta línea.
 --
+SELECT CAST(STRFTIME('%Y', c14) AS INT) AS year, COUNT(*) AS cant FROM tbl1 WHERE year = 2018;
