@@ -80,4 +80,79 @@ def pregunta_01():
         }
     """
 
-    raise NotImplementedError
+    import json
+    from pathlib import Path
+
+    import pandas as pd
+
+    k = 5
+    df = pd.read_csv("data/insurance.csv.gz")
+
+    original_sizes = df.groupby(["age", "sex", "bmi", "children", "region"])[
+        "charges"
+    ].transform("size")
+
+    df["age_group"] = pd.cut(
+        df["age"], [0, 30, 40, 50, 200], right=False,
+        labels=["18-29", "30-39", "40-49", "50-64"],
+    ).astype(str)
+    df["bmi_group"] = pd.cut(
+        df["bmi"], [0, 18.5, 25, 30, float("inf")], right=False,
+        labels=["bajo peso", "normal", "sobrepeso", "obesidad"],
+    ).astype(str)
+    df["children_group"] = pd.cut(
+        df["children"], [0, 1, 3, float("inf")], right=False,
+        labels=["0", "1-2", "3+"],
+    ).astype(str)
+
+    scheme_columns = {
+        "with_children": ["age_group", "sex", "bmi_group", "children_group", "region"],
+        "without_children": ["age_group", "sex", "bmi_group", "region"],
+    }
+
+    schemes = {}
+    published_by_scheme = {}
+    for name, columns in scheme_columns.items():
+        grouped = df.groupby(columns)
+        sizes = grouped["charges"].transform("size")
+        smokers = grouped["smoker"].transform(lambda s: (s == "yes").sum())
+        published_mask = sizes >= k
+        no_diversity = published_mask & ((smokers == 0) | (smokers == sizes))
+        published = df[published_mask]
+
+        schemes[name] = {
+            "quasi_identifiers": columns,
+            "equivalence_classes": int(grouped.ngroups),
+            "k_before_suppression": int(sizes.min()),
+            "suppressed_records": int((~published_mask).sum()),
+            "published_records": int(published_mask.sum()),
+            "published_classes": int(published.groupby(columns).ngroups),
+            "classes_without_smoker_diversity": int(
+                df[no_diversity].groupby(columns).ngroups
+            ),
+            "records_without_smoker_diversity": int(no_diversity.sum()),
+        }
+        published_by_scheme[name] = published[columns + ["smoker", "charges"]]
+
+    selected = min(schemes, key=lambda n: schemes[n]["suppressed_records"])
+    published = published_by_scheme[selected]
+
+    report = {
+        "original_k": int(original_sizes.min()),
+        "original_unique_records": int((original_sizes == 1).sum()),
+        "schemes": schemes,
+        "selected_scheme": selected,
+        "mean_charges_original": float(df["charges"].mean()),
+        "mean_charges_published": float(published["charges"].mean()),
+        "smoker_rate_original": float((df["smoker"] == "yes").mean()),
+        "smoker_rate_published": float((published["smoker"] == "yes").mean()),
+    }
+
+    out = Path("submission")
+    out.mkdir(exist_ok=True)
+    (out / "privacy_report.json").write_text(
+        json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    published.to_csv(out / "insurance_published.csv", index=False)
+
+    return report
