@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 
 
@@ -43,4 +45,43 @@ def clean_campaign_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         ...
     """
 
-    raise NotImplementedError
+    data = Path("data")
+    files = sorted(data.glob("bank-marketing-campaing-*.csv.gz"))
+    df = pd.concat(
+        (pd.read_csv(f, index_col=0) for f in files), ignore_index=True
+    ).sort_values("client_id")
+
+    client = df[
+        ["client_id", "age", "job", "marital", "education", "credit_default", "mortgage"]
+    ].copy()
+    client["job"] = client["job"].str.replace(".", "", regex=False).str.replace("-", "_")
+    client["education"] = (
+        client["education"].str.replace(".", "_", regex=False).replace("unknown", pd.NA)
+    )
+    for col in ["credit_default", "mortgage"]:
+        client[col] = (client[col] == "yes").astype(int)
+
+    campaign = df[
+        [
+            "client_id",
+            "number_contacts",
+            "contact_duration",
+            "previous_campaign_contacts",
+            "previous_outcome",
+            "campaign_outcome",
+        ]
+    ].copy()
+    campaign["previous_outcome"] = (campaign["previous_outcome"] == "success").astype(int)
+    campaign["campaign_outcome"] = (campaign["campaign_outcome"] == "yes").astype(int)
+    campaign["last_contact_date"] = pd.to_datetime(
+        "2022-" + df["month"] + "-" + df["day"].astype(str), format="%Y-%b-%d"
+    ).dt.strftime("%Y-%m-%d")
+
+    economics = df[["client_id", "cons_price_idx", "euribor_three_months"]].copy()
+
+    out = Path("submission")
+    out.mkdir(exist_ok=True)
+    for name, table in [("client", client), ("campaign", campaign), ("economics", economics)]:
+        table.to_csv(out / f"{name}.csv", index=False)
+
+    return client, campaign, economics
