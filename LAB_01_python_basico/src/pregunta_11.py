@@ -1,3 +1,11 @@
+import gzip
+
+
+def _read_rows():
+    with gzip.open("data/data.csv.gz", "rt") as f:
+        return [line.rstrip("\n").split("\t") for line in f if line.strip()]
+
+
 def pregunta_11():
     """
     La cuarta columna (`codes`) contiene letras minúsculas separadas por
@@ -10,4 +18,8 @@ def pregunta_11():
         {"a": 122, "b": 49, "c": 91, ...}
     """
 
-    raise NotImplementedError
+    sums = {}
+    for row in _read_rows():
+        for code in row[3].split(","):
+            sums[code] = sums.get(code, 0) + int(row[1])
+    return dict(sorted(sums.items()))

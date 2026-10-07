@@ -1,3 +1,11 @@
+import gzip
+
+
+def _read_rows():
+    with gzip.open("data/data.csv.gz", "rt") as f:
+        return [line.rstrip("\n").split("\t") for line in f if line.strip()]
+
+
 def pregunta_06():
     """
     La quinta columna (`metrics`) contiene pares `clave:valor` separados por
@@ -13,4 +21,9 @@ def pregunta_06():
         [("aaa", 1, 9), ("bbb", 1, 9), ...]
     """
 
-    raise NotImplementedError
+    values = {}
+    for row in _read_rows():
+        for pair in row[4].split(","):
+            key, value = pair.split(":")
+            values.setdefault(key, []).append(int(value))
+    return [(k, min(v), max(v)) for k, v in sorted(values.items())]
