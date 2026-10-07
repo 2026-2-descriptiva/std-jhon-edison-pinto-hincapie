@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 
 
@@ -58,4 +60,35 @@ def pregunta_01() -> tuple[pd.DataFrame, pd.DataFrame]:
         ...
     """
 
-    raise NotImplementedError
+    flights = pd.read_csv("data/flights_by_carrier_day_hour.csv.gz")
+    cols = ["operated_flights", "delayed_departure_15_flights"]
+
+    hourly = flights.groupby("scheduled_departure_hour", as_index=False)[cols].sum()
+    hourly["delay_rate"] = hourly[cols[1]] / hourly[cols[0]]
+
+    by_hour = (
+        flights.groupby(["reporting_airline", "scheduled_departure_hour"], as_index=False)[cols[0]]
+        .sum()
+        .merge(hourly[["scheduled_departure_hour", "delay_rate"]], on="scheduled_departure_hour")
+    )
+    by_hour["expected"] = by_hour[cols[0]] * by_hour["delay_rate"]
+    expected = by_hour.groupby("reporting_airline")["expected"].sum()
+
+    carriers = flights.groupby("reporting_airline")[cols].sum()
+    carriers = carriers[carriers[cols[0]] >= 100_000].copy()
+    carriers["delay_rate"] = carriers[cols[1]] / carriers[cols[0]]
+    carriers["expected_delayed_flights"] = expected
+    carriers["observed_to_expected_ratio"] = (
+        carriers[cols[1]] / carriers["expected_delayed_flights"]
+    )
+    carriers["crude_rank"] = carriers["delay_rate"].rank(ascending=False, method="min").astype(int)
+    carriers["adjusted_rank"] = (
+        carriers["observed_to_expected_ratio"].rank(ascending=False, method="min").astype(int)
+    )
+    carriers = carriers.sort_values("adjusted_rank").reset_index()
+
+    out = Path("submission")
+    out.mkdir(exist_ok=True)
+    hourly.to_csv(out / "hourly_delay_rates.csv", index=False)
+    carriers.to_csv(out / "carrier_adjusted_delays.csv", index=False)
+    return hourly, carriers
