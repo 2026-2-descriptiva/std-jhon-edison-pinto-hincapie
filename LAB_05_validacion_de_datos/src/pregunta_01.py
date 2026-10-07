@@ -1,3 +1,15 @@
+import json
+from pathlib import Path
+
+import pandas as pd
+
+REQUIRED = [
+    "supplier_id", "supplier", "country", "city", "purchase_date", "amount",
+    "discount", "weight", "units", "unit_price", "contact_email",
+]
+EMAIL_PATTERN = r"^[^@\s]+@[^@\s]+\.[^@\s.]+$"
+
+
 def main():
     """
     Antes de limpiar o analizar un conjunto de datos, un analista debe
@@ -48,4 +60,42 @@ def main():
         }
     """
 
-    raise NotImplementedError
+    # Todo como texto y sin conversión de faltantes: se diagnostica tal cual.
+    df = pd.read_csv(
+        "data/ventas.csv.gz",
+        dtype=str,
+        keep_default_na=False,
+        encoding="utf-8-sig",
+    )
+    df.columns = [
+        c.replace("\ufeff", "").strip().lower().replace(" ", "_")
+        for c in df.columns
+    ]
+
+    missing = df.apply(lambda col: col.str.strip().isin(["", "N/A"]))
+    units = pd.to_numeric(df["units"].where(~missing["units"]), errors="coerce")
+    invalid_units = units.notna() & ((units <= 0) | (units % 1 != 0))
+
+    report = {
+        "row_count": len(df),
+        "column_count": len(df.columns),
+        "missing_required_columns": sorted(set(REQUIRED) - set(df.columns)),
+        "unexpected_columns": sorted(set(df.columns) - set(REQUIRED)),
+        "duplicate_row_count": int(df.duplicated().sum()),
+        "duplicate_supplier_id_row_count": int(
+            df["supplier_id"].duplicated(keep=False).sum()
+        ),
+        "missing_value_count_by_column": {
+            c: int(n) for c, n in missing.sum().items()
+        },
+        "invalid_email_count": int(
+            (~df["contact_email"].str.match(EMAIL_PATTERN)).sum()
+        ),
+        "invalid_unit_count": int(invalid_units.sum()),
+        "country_values": sorted(df["country"].unique()),
+    }
+
+    out = Path("submission/data_quality_report.json")
+    out.parent.mkdir(exist_ok=True)
+    out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    return report
