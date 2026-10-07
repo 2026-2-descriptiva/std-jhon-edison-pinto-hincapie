@@ -1,3 +1,9 @@
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -44,4 +50,41 @@ def build_cohort_analysis() -> pd.DataFrame:
         ...
     """
 
-    raise NotImplementedError
+    orders = pd.read_csv("data/sales.csv.gz", usecols=["CustomerID", "OrderDate"])
+    month = pd.to_datetime(orders["OrderDate"]).dt.to_period("M")
+    cohort = month.groupby(orders["CustomerID"]).transform("min")
+    orders["cohort_month"] = cohort.astype(str)
+    orders["period_index"] = (month - cohort).apply(lambda offset: offset.n)
+
+    result = (
+        orders.groupby(["cohort_month", "period_index"])["CustomerID"]
+        .nunique()
+        .rename("active_customers")
+        .reset_index()
+    )
+    size = result[result["period_index"] == 0].set_index("cohort_month")["active_customers"]
+    result["cohort_size"] = result["cohort_month"].map(size)
+    result["retention_rate"] = result["active_customers"] / result["cohort_size"]
+
+    Path("submission").mkdir(exist_ok=True)
+    result.to_csv("submission/cohort_retention.csv", index=False)
+
+    # Unobserved periods stay NaN (blank in the heatmap), never 0.
+    matrix = result.pivot(index="cohort_month", columns="period_index", values="retention_rate")
+    fig, ax = plt.subplots(figsize=(9, 6))
+    image = ax.imshow(matrix.to_numpy() * 100, cmap="Blues", vmin=0, vmax=100)
+    ax.set_xticks(range(len(matrix.columns)), matrix.columns)
+    ax.set_yticks(range(len(matrix.index)), matrix.index)
+    ax.set_xlabel("Período (meses desde la primera compra)")
+    ax.set_ylabel("Cohorte")
+    ax.set_title("Retención por cohorte (%)")
+    for i, row in enumerate(matrix.to_numpy()):
+        for j, value in enumerate(row):
+            if pd.notna(value):
+                ax.text(j, i, f"{value:.0%}", ha="center", va="center", fontsize=8)
+    fig.colorbar(image, ax=ax, label="Retención (%)")
+    fig.tight_layout()
+    fig.savefig("submission/cohort_retention_heatmap.png", dpi=150)
+    plt.close(fig)
+
+    return result
