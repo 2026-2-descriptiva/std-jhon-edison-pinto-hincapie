@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 def pregunta_01():
     """
     El archivo `data/solicitudes_de_credito.csv.gz` contiene las solicitudes de
@@ -34,4 +37,37 @@ def pregunta_01():
         ...
     """
 
-    raise NotImplementedError
+    df = pd.read_csv("data/solicitudes_de_credito.csv.gz", sep=";", dtype=str)
+    df = df.drop(columns="Unnamed: 0")
+
+    text_cols = ["sexo", "tipo_de_emprendimiento", "idea_negocio", "barrio", "línea_credito"]
+    for col in text_cols:
+        df[col] = (
+            df[col]
+            .str.lower()
+            .str.replace(r"[-_]", " ", regex=True)
+            .str.split()
+            .str.join(" ")
+        )
+
+    df["estrato"] = df["estrato"].astype(int)
+    df["comuna_ciudadano"] = df["comuna_ciudadano"].astype(float).astype("Int64")
+    df["monto_del_credito"] = (
+        df["monto_del_credito"]
+        .str.replace(r"\.00$", "", regex=True)
+        .str.replace(r"[^0-9]", "", regex=True)
+        .astype("int64")
+    )
+
+    # dos formatos de fecha: dd/mm/aaaa y aaaa/mm/dd
+    dates = pd.to_datetime(df["fecha_de_beneficio"], format="%d/%m/%Y", errors="coerce")
+    dates = dates.fillna(
+        pd.to_datetime(df["fecha_de_beneficio"], format="%Y/%m/%d", errors="coerce")
+    )
+    df["fecha_de_beneficio"] = dates.dt.strftime("%Y-%m-%d")
+
+    # comuna faltante es dato original; el resto de faltantes se descarta
+    df = df.dropna(subset=[c for c in df.columns if c != "comuna_ciudadano"])
+    df = df.drop_duplicates()
+
+    df.to_csv("submission/solicitudes_de_credito.csv", sep=";", index=False)
