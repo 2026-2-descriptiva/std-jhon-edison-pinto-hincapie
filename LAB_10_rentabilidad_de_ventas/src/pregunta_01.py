@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 
 
@@ -50,4 +52,55 @@ def pregunta_01() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         ...
     """
 
-    raise NotImplementedError
+    df = pd.read_csv(
+        "data/superstore_orders.csv.gz", sep=";", decimal=",", compression="gzip"
+    )
+    df["loss"] = (-df["Profit"]).where(df["Profit"] < 0, 0.0)
+    df["is_loss"] = df["Profit"] < 0
+    df["discount_band"] = pd.cut(
+        df["Discount"],
+        bins=[-float("inf"), 0, 0.05, 0.10, float("inf")],
+        labels=["0%", "1%-5%", "6%-10%", "más de 10%"],
+    )
+
+    def totals(g):
+        return g.agg(
+            lines=("Profit", "size"),
+            sales=("Sales", "sum"),
+            profit=("Profit", "sum"),
+            loss_lines=("is_loss", "sum"),
+            lost_profit=("loss", "sum"),
+        )
+
+    def finish(t):
+        t["profit_margin"] = t["profit"] / t["sales"]
+        t["loss_line_rate"] = t["loss_lines"] / t["lines"]
+        return t
+
+    summary = finish(totals(df.assign(all=1).groupby("all")))
+    summary["orders"] = df["Order ID"].nunique()
+    summary = summary[
+        ["lines", "orders", "sales", "profit", "profit_margin",
+         "loss_lines", "loss_line_rate", "lost_profit"]
+    ].round(4)
+
+    discounts = finish(totals(df.groupby("discount_band", observed=False)))
+    discounts = discounts.reset_index()[
+        ["discount_band", "lines", "sales", "profit", "profit_margin",
+         "loss_line_rate", "lost_profit"]
+    ].round(4)
+
+    keys = ["Customer Segment", "Product Category"]
+    segments = finish(totals(df.groupby(keys))).reset_index()
+    segments = (
+        segments[segments["lines"] >= 100]
+        .sort_values("lost_profit", ascending=False)
+        .head(5)[keys + ["lines", "sales", "profit", "profit_margin", "lost_profit"]]
+        .round(4)
+    )
+
+    Path("submission").mkdir(exist_ok=True)
+    summary.to_csv("submission/profitability_summary.csv", index=False)
+    discounts.to_csv("submission/discount_summary.csv", index=False)
+    segments.to_csv("submission/priority_segments.csv", index=False)
+    return summary, discounts, segments
