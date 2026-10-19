@@ -1,0 +1,8 @@
+gerencia,departamento,employees,avg_experience_years,avg_salary,median_salary,gap_vs_company_median
+Finanzas,Tesorería,130,8.2,8341335.1692,7128684.0,-0.2464
+Comercial,Clientes menores,124,9.1532,9432107.8952,8107724.0,-0.1429
+Operaciones,Operaciones,185,9.0486,9942518.5405,9481048.0,0.0023
+Finanzas,Planeación financiera,112,9.3304,10479154.0982,9753459.5,0.0311
+Talento,Recursos humanos,120,9.2667,10317959.0333,9780085.0,0.0339
+Operaciones,Tecnología,156,9.4103,10645629.6218,10012159.0,0.0585
+Comercial,Clientes mayoristas,173,9.7457,11025296.6705,10342126.0,0.0933

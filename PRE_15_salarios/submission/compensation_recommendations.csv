@@ -1,0 +1,90 @@
+employee_id,gerencia,departamento,trayectoria,categoria,experiencia_tecnica_anios,salario_mensual_cop,peer_median,ratio_to_peer,recommended_salary,recommended_increase
+E0686,Comercial,Clientes menores,Técnica,Analista,0,2101179,4182974.0,0.5023,3555528.0,1454349.0
+E0100,Finanzas,Tesorería,Técnica,Analista,1,2544374,4182974.0,0.6083,3555528.0,1011154.0
+E0016,Finanzas,Tesorería,Técnica,Analista,2,2552199,4182974.0,0.6101,3555528.0,1003329.0
+E0473,Comercial,Clientes menores,Técnica,Analista,0,2595612,4182974.0,0.6205,3555528.0,959916.0
+E0635,Comercial,Clientes menores,Técnica,Analista,0,2612596,4182974.0,0.6246,3555528.0,942932.0
+E0964,Operaciones,Operaciones,Técnica,Analista,0,2650167,4182974.0,0.6336,3555528.0,905361.0
+E0134,Comercial,Clientes menores,Técnica,Profesional,2,3962617,6237535.0,0.6353,5301905.0,1339288.0
+E0996,Comercial,Clientes menores,Técnica,Profesional,2,4092069,6237535.0,0.656,5301905.0,1209836.0
+E0336,Talento,Recursos humanos,Técnica,Analista,0,2758318,4182974.0,0.6594,3555528.0,797210.0
+E0283,Finanzas,Tesorería,Técnica,Profesional,2,4156027,6237535.0,0.6663,5301905.0,1145878.0
+E0511,Comercial,Clientes menores,Técnica,Profesional,2,4158324,6237535.0,0.6667,5301905.0,1143581.0
+E0188,Finanzas,Tesorería,Técnica,Profesional,2,4194518,6237535.0,0.6725,5301905.0,1107387.0
+E0262,Operaciones,Operaciones,Técnica,Analista,0,2937627,4182974.0,0.7023,3555528.0,617901.0
+E0773,Comercial,Clientes menores,Técnica,Profesional,2,4405094,6237535.0,0.7062,5301905.0,896811.0
+E0822,Finanzas,Tesorería,Técnica,Analista,2,2971898,4182974.0,0.7105,3555528.0,583630.0
+E0907,Comercial,Clientes menores,Técnica,Profesional,2,4458181,6237535.0,0.7147,5301905.0,843724.0
+E0249,Finanzas,Tesorería,Técnica,Profesional,2,4525039,6237535.0,0.7255,5301905.0,776866.0
+E0289,Finanzas,Tesorería,Técnica,Profesional,3,4538649,6237535.0,0.7276,5301905.0,763256.0
+E0353,Talento,Recursos humanos,Técnica,Analista,0,3063976,4182974.0,0.7325,3555528.0,491552.0
+E0184,Comercial,Clientes menores,Técnica,Analista,2,3091115,4182974.0,0.739,3555528.0,464413.0
+E0783,Finanzas,Tesorería,Técnica,Profesional,2,4655927,6237535.0,0.7464,5301905.0,645978.0
+E0197,Finanzas,Tesorería,Técnica,Analista,2,3126724,4182974.0,0.7475,3555528.0,428804.0
+E0584,Finanzas,Tesorería,Técnica,Analista,1,3126873,4182974.0,0.7475,3555528.0,428655.0
+E0749,Finanzas,Tesorería,Técnica,Analista,4,3128113,4182974.0,0.7478,3555528.0,427415.0
+E0692,Comercial,Clientes menores,Técnica,Analista,4,3128308,4182974.0,0.7479,3555528.0,427220.0
+E0743,Finanzas,Planeación financiera,Técnica,Analista,0,3131958,4182974.0,0.7487,3555528.0,423570.0
+E0856,Comercial,Clientes menores,Técnica,Profesional,4,4673869,6237535.0,0.7493,5301905.0,628036.0
+E0421,Comercial,Clientes menores,Técnica,Profesional,2,4733972,6237535.0,0.7589,5301905.0,567933.0
+E0409,Talento,Recursos humanos,Técnica,Analista,1,3178968,4182974.0,0.76,3555528.0,376560.0
+E0637,Operaciones,Operaciones,Técnica,Analista,0,3180193,4182974.0,0.7603,3555528.0,375335.0
+E0229,Comercial,Clientes mayoristas,Técnica,Profesional,2,4756409,6237535.0,0.7625,5301905.0,545496.0
+E0922,Comercial,Clientes menores,Técnica,Analista,4,3202093,4182974.0,0.7655,3555528.0,353435.0
+E0969,Comercial,Clientes menores,Técnica,Especialista,5,7176087,9367871.0,0.766,7962690.0,786603.0
+E0608,Finanzas,Tesorería,Técnica,Especialista,5,7176676,9367871.0,0.7661,7962690.0,786014.0
+E0121,Finanzas,Tesorería,Técnica,Profesional,3,4787817,6237535.0,0.7676,5301905.0,514088.0
+E0146,Finanzas,Tesorería,Técnica,Especialista,5,7212353,9367871.0,0.7699,7962690.0,750337.0
+E0882,Comercial,Clientes menores,Técnica,Profesional,4,4840339,6237535.0,0.776,5301905.0,461566.0
+E0578,Comercial,Clientes menores,Técnica,Especialista,6,7272196,9367871.0,0.7763,7962690.0,690494.0
+E0413,Finanzas,Tesorería,Técnica,Analista,2,3277126,4182974.0,0.7834,3555528.0,278402.0
+E0657,Talento,Recursos humanos,Técnica,Especialista,5,7341576,9367871.0,0.7837,7962690.0,621114.0
+E0723,Operaciones,Operaciones,Técnica,Analista,0,3292265,4182974.0,0.7871,3555528.0,263263.0
+E0610,Comercial,Clientes menores,Técnica,Profesional,4,4931128,6237535.0,0.7906,5301905.0,370777.0
+E0725,Finanzas,Tesorería,Técnica,Especialista,5,7421436,9367871.0,0.7922,7962690.0,541254.0
+E0108,Finanzas,Tesorería,Directiva,Especialista,5,8741725,10982024.5,0.796,9334721.0,592996.0
+E0213,Operaciones,Operaciones,Técnica,Profesional,2,4972782,6237535.0,0.7972,5301905.0,329123.0
+E0441,Finanzas,Tesorería,Técnica,Profesional,4,4980377,6237535.0,0.7985,5301905.0,321528.0
+E0125,Operaciones,Operaciones,Técnica,Profesional,3,4981612,6237535.0,0.7987,5301905.0,320293.0
+E0992,Comercial,Clientes menores,Técnica,Analista,4,3345872,4182974.0,0.7999,3555528.0,209656.0
+E0817,Talento,Recursos humanos,Técnica,Analista,1,3359254,4182974.0,0.8031,3555528.0,196274.0
+E0722,Finanzas,Tesorería,Técnica,Analista,5,3379671,4182974.0,0.808,3555528.0,175857.0
+E0850,Finanzas,Tesorería,Técnica,Profesional,4,5043759,6237535.0,0.8086,5301905.0,258146.0
+E0162,Talento,Recursos humanos,Técnica,Profesional,2,5047368,6237535.0,0.8092,5301905.0,254537.0
+E0266,Comercial,Clientes menores,Técnica,Analista,4,3395351,4182974.0,0.8117,3555528.0,160177.0
+E0019,Finanzas,Tesorería,Técnica,Analista,6,3396677,4182974.0,0.812,3555528.0,158851.0
+E0075,Finanzas,Tesorería,Técnica,Profesional,3,5065801,6237535.0,0.8121,5301905.0,236104.0
+E0449,Comercial,Clientes menores,Técnica,Profesional,4,5078096,6237535.0,0.8141,5301905.0,223809.0
+E0561,Finanzas,Tesorería,Técnica,Profesional,3,5080080,6237535.0,0.8144,5301905.0,221825.0
+E0801,Comercial,Clientes menores,Técnica,Especialista,6,7688054,9367871.0,0.8207,7962690.0,274636.0
+E0796,Comercial,Clientes menores,Técnica,Profesional,6,5136611,6237535.0,0.8235,5301905.0,165294.0
+E0690,Finanzas,Planeación financiera,Técnica,Analista,0,3446711,4182974.0,0.824,3555528.0,108817.0
+E0630,Comercial,Clientes menores,Técnica,Especialista,5,7721302,9367871.0,0.8242,7962690.0,241388.0
+E0418,Finanzas,Tesorería,Técnica,Analista,4,3452329,4182974.0,0.8253,3555528.0,103199.0
+E0795,Comercial,Clientes menores,Técnica,Profesional,6,5157857,6237535.0,0.8269,5301905.0,144048.0
+E0425,Finanzas,Tesorería,Técnica,Analista,4,3462953,4182974.0,0.8279,3555528.0,92575.0
+E0673,Finanzas,Planeación financiera,Técnica,Analista,0,3465578,4182974.0,0.8285,3555528.0,89950.0
+E0029,Comercial,Clientes menores,Técnica,Especialista,6,7793003,9367871.0,0.8319,7962690.0,169687.0
+E0590,Operaciones,Operaciones,Técnica,Analista,0,3480665,4182974.0,0.8321,3555528.0,74863.0
+E0457,Comercial,Clientes menores,Técnica,Especialista,8,7801951,9367871.0,0.8328,7962690.0,160739.0
+E0218,Operaciones,Operaciones,Directiva,Profesional,3,6873886,8252626.0,0.8329,7014732.0,140846.0
+E0169,Comercial,Clientes menores,Técnica,Profesional,2,5200294,6237535.0,0.8337,5301905.0,101611.0
+E0973,Comercial,Clientes menores,Técnica,Analista,3,3489376,4182974.0,0.8342,3555528.0,66152.0
+E0296,Operaciones,Operaciones,Técnica,Analista,0,3490657,4182974.0,0.8345,3555528.0,64871.0
+E0963,Finanzas,Planeación financiera,Técnica,Especialista,5,7819201,9367871.0,0.8347,7962690.0,143489.0
+E0654,Talento,Recursos humanos,Técnica,Analista,1,3493022,4182974.0,0.8351,3555528.0,62506.0
+E0713,Finanzas,Tesorería,Técnica,Profesional,4,5209940,6237535.0,0.8353,5301905.0,91965.0
+E0508,Operaciones,Operaciones,Técnica,Especialista,5,7825569,9367871.0,0.8354,7962690.0,137121.0
+E0763,Finanzas,Tesorería,Técnica,Profesional,3,5214963,6237535.0,0.8361,5301905.0,86942.0
+E0527,Operaciones,Operaciones,Técnica,Profesional,3,5220725,6237535.0,0.837,5301905.0,81180.0
+E0377,Talento,Recursos humanos,Técnica,Especialista,5,7864260,9367871.0,0.8395,7962690.0,98430.0
+E0557,Comercial,Clientes menores,Técnica,Profesional,4,5242808,6237535.0,0.8405,5301905.0,59097.0
+E0727,Operaciones,Operaciones,Técnica,Analista,0,3517864,4182974.0,0.841,3555528.0,37664.0
+E0451,Comercial,Clientes menores,Técnica,Senior,8,10825527,12836592.0,0.8433,10911103.0,85576.0
+E0064,Finanzas,Tesorería,Técnica,Profesional,6,5265085,6237535.0,0.8441,5301905.0,36820.0
+E0509,Finanzas,Tesorería,Técnica,Profesional,2,5269816,6237535.0,0.8449,5301905.0,32089.0
+E0297,Finanzas,Planeación financiera,Técnica,Profesional,2,5280367,6237535.0,0.8465,5301905.0,21538.0
+E0291,Comercial,Clientes menores,Técnica,Especialista,6,7932839,9367871.0,0.8468,7962690.0,29851.0
+E0398,Comercial,Clientes menores,Técnica,Profesional,4,5296402,6237535.0,0.8491,5301905.0,5503.0
+E0268,Talento,Recursos humanos,Técnica,Analista,1,3552753,4182974.0,0.8493,3555528.0,2775.0
+E0712,Talento,Recursos humanos,Técnica,Especialista,5,7959706,9367871.0,0.8497,7962690.0,2984.0

@@ -1,0 +1,11 @@
+metric,value
+employees,1000
+company_median_salary,9459118.5
+high_salary_threshold_p90,17340829.6
+highest_paid_department,Clientes mayoristas
+highest_department_gap_vs_median,0.0933
+lowest_paid_department,Tesorería
+lowest_department_gap_vs_median,-0.2464
+directiva_vs_tecnica_median_ratio,1.798010392474481
+employees_below_peer_floor,89
+total_recommended_increase,36824105.0
